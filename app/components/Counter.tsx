@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
+import { MainPageDispatchInterface } from '../pages/MainPage';
 
 interface Props
 {
-    count: number
-    incrementFn:Function;
-    decrementFn:Function;
+    count: number;
 }
-export interface CounterState { }
-export default class Counter extends Component<Props, CounterState>
+
+export default class Counter extends Component<Props&MainPageDispatchInterface>
 {
     
     render()

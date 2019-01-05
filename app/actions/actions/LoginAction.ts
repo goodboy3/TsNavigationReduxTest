@@ -21,7 +21,7 @@ export class LoginAction
             dispatch(LoginAction.StartLogin());
 
             //模拟
-            let result = fetch('https://www.baidu.com/')
+            fetch('https://www.baidu.com/')
                 .then((res) =>
                 {
                     dispatch(LoginAction.LoginSuccess({name:"zhang",age:24}));

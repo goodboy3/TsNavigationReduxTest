@@ -5,17 +5,21 @@ import { LoginStateInterface } from "../reducers/reducers/LoginReducer";
 import { LoginAction } from "../actions/actions/LoginAction";
 import { CombinReducersInterface } from "../reducers/IndexReducers";
 import { NavigationInjectedProps } from "react-navigation";
+import { PageList } from "../navigation/PageListEnum";
 
 
 
 interface Props
 {
-    status: string;
+    
+}
+
+export interface LoginPageDispatchInterface
+{
     login: Function;
- }
+}
 
-
-export class LoginPage extends Component<Props & LoginStateInterface & NavigationInjectedProps>
+export class LoginPage extends Component<Props & LoginStateInterface &LoginPageDispatchInterface& NavigationInjectedProps>
 {
     shouldComponentUpdate(nextProps, nextState)
     {
@@ -24,7 +28,7 @@ export class LoginPage extends Component<Props & LoginStateInterface & Navigatio
         {
             console.log("切换页面");
             
-            this.props.navigation.navigate("Main");
+            this.props.navigation.navigate(PageList.Main, { status: nextProps.status});
             return true;
         }
         return true;
@@ -67,7 +71,7 @@ export default connect(
         user: state.login.user,
     }),
     //dispatch映射为属性
-    (dispatch) => ({
+    (dispatch:any):LoginPageDispatchInterface => ({
         login: () => dispatch(LoginAction.Login()),
     })
 )(LoginPage)

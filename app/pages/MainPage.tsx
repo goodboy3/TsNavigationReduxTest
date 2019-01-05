@@ -5,32 +5,30 @@ import { connect } from "react-redux";
 import { CounterAction } from "../actions/actions/CounterAction";
 import { CombinReducersInterface } from "../reducers/IndexReducers";
 import { CounterStateInterface } from "../reducers/reducers/CounterReducer";
+import { NavigationInjectedProps } from "react-navigation";
 
 interface Props
 {
-    status: string;
-    count?: number;
-    incrementFn?: Function;
-    decrementFn?: Function;
+    
 }
-interface State { }
+interface State
+{ 
 
-export class MainPage extends Component<Props, State>
+}
+
+export interface MainPageDispatchInterface
+{
+    incrementFn: Function;
+    decrementFn: Function;
+    }
+
+export class MainPage extends Component<Props&CounterStateInterface&MainPageDispatchInterface& NavigationInjectedProps, State>
 {
     render()
     {
         return (
             <View style={styles.container}>
-                <Text>状态:{this.props.status}</Text>
-                {/* <Button
-                    title='Logout'
-                    onPress={
-                        () =>
-                        {
-                            
-                        }
-                    }
-                /> */}
+                <Text>状态:{this.props.navigation.getParam("status")}</Text>
                 <Counter incrementFn={this.props.incrementFn} decrementFn={this.props.decrementFn} count={this.props.count}/>
             </View>
         )
@@ -50,7 +48,7 @@ export default connect(
     (state:CombinReducersInterface):CounterStateInterface => ({
         count:state.counter.count,
     }),
-    (dispatch) => ({
+    (dispatch):MainPageDispatchInterface => ({
         incrementFn: () => dispatch(CounterAction.increment(2)),
         decrementFn: () => dispatch(CounterAction.decrement(2)),
     })
