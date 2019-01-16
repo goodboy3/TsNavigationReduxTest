@@ -21,18 +21,18 @@ export interface LoginPageDispatchInterface
 
 export class LoginPage extends Component<Props & LoginStateInterface &LoginPageDispatchInterface& NavigationInjectedProps>
 {
-    shouldComponentUpdate(nextProps, nextState)
-    {
-        // 登录完成,切成功登录
-        if (nextProps.status === '登陆成功' && nextProps.isSuccess)
-        {
-            console.log("切换页面");
+    // shouldComponentUpdate(nextProps, nextState)
+    // {
+    //     // 登录完成,切成功登录
+    //     if (nextProps.status === '登陆成功' && nextProps.isSuccess)
+    //     {
+    //         console.log("切换页面");
             
-            this.props.navigation.navigate(PageList.Main, { status: nextProps.status});
-            return true;
-        }
-        return true;
-    }
+    //         this.props.navigation.navigate(PageList.Main, { status: nextProps.status});
+    //         return true;
+    //     }
+    //     return true;
+    // }
 
     render()
     {
@@ -72,6 +72,6 @@ export default connect(
     }),
     //dispatch映射为属性
     (dispatch:any):LoginPageDispatchInterface => ({
-        login: () => dispatch(LoginAction.Login()),
+        login: () => dispatch(LoginAction.StartLogin()),
     })
 )(LoginPage)

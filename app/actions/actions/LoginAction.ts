@@ -1,4 +1,7 @@
 import { ActionType } from "../ActionType";
+import { LoadingAction } from "./LoadingAction";
+import { NavigationService } from "../../navigation/NavigationService";
+import { PageList } from "../../navigation/PageListEnum";
 
 export interface LoginActionInterface
 {
@@ -14,25 +17,28 @@ export interface UserInfo
 
 export class LoginAction
 {
-    static Login()
-    {
-        return (dispatch:any) =>
-        {
-            dispatch(LoginAction.StartLogin());
+    // static Login()
+    // {
+    //     return (dispatch:any) =>
+    //     {
+    //         dispatch(LoginAction.StartLogin());
+    //         dispatch(LoadingAction.ShowLoadingPage());
 
-            //模拟
-            fetch('https://www.baidu.com/')
-                .then((res) =>
-                {
-                    dispatch(LoginAction.LoginSuccess({name:"zhang",age:24}));
-                }).catch((e) =>
-                {
-                    dispatch(LoginAction.LoginError());
-                })
-        }
-    }
+    //         //模拟
+    //         fetch('https://www.baidu.com/')
+    //             .then((res) =>
+    //             {
+    //                 dispatch(LoginAction.LoginSuccess({ name: "zhang", age: 24 }));
+    //                 NavigationService.navigate(PageList.Main, { status:"已登陆"});
+    //                 dispatch(LoadingAction.HideLoadingPage());
+    //             }).catch((e) =>
+    //             {
+    //                 dispatch(LoginAction.LoginError());
+    //             })
+    //     }
+    // }
 
-    private static StartLogin():LoginActionInterface
+    static StartLogin():LoginActionInterface
     {
         return{
             type: ActionType.Login_doing,
@@ -40,7 +46,7 @@ export class LoginAction
         }
     }
 
-    private static LoginSuccess(user:UserInfo)
+    static LoginSuccess(user:UserInfo)
     {
         return {
             type: ActionType.Login_done,
@@ -48,7 +54,7 @@ export class LoginAction
         }
     }
 
-    private static LoginError()
+    static LoginError()
     {
         return {
             type: ActionType.Login_error,
