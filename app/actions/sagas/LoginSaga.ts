@@ -38,6 +38,7 @@ export const LoginSaga = function* fetchLogin(params)
         //出loading
         console.log("出 loading");
         
+        yield delay(2000);
         let user = yield call(HttpUtil.FetchLogin,"https://www.baidu.com/");
         yield put(LoginAction.LoginSuccess(user))
 
